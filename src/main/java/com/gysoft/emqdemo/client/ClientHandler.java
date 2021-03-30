@@ -2,6 +2,7 @@ package com.gysoft.emqdemo.client;
 
 import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -11,18 +12,28 @@ import javax.annotation.PostConstruct;
  * @date 2019/11/15$ 17:43$
  */
 @Component
-public class Client {
+public class ClientHandler {
 
-    public static void main(String[] args) {
+    @Value("${com.mqtt.topic}")
+    public String topic;
+    @Value("${com.mqtt.host}")
+    public String broker;
+    @Value("${com.mqtt.clientid}")
+    public String clientId;
+    @Value("${com.mqtt.qos}")
+    public int qos;
 
+
+    @PostConstruct
+    public void init() {
         String topic = "demo/topics";
         String content = "Message from MqttPublishSample";
         int qos = 1;
         String broker = "tcp://10.200.0.91:1883";
-        String clientId = "client2";
         MemoryPersistence persistence = new MemoryPersistence();
 
         try {
+            System.out.println("clientId:" + clientId);
             MqttClient sampleClient = new MqttClient(broker, clientId, persistence);
             MqttConnectOptions connOpts = new MqttConnectOptions();
             connOpts.setCleanSession(true);

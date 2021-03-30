@@ -1,16 +1,15 @@
-
-#mq≈‰÷√
+#mqtt
 com:
   mqtt:
-
-    host: tcp://localhost:1883
-    clientid: JavaSample
+    host: tcp://10.200.0.91:1883
+    clientid: client11
     topic: demo/topics
     timeout: 10
     keepalive: 20
     maxReconnectTimes: 5
     reconnInterval: 1
-    prefixUrl: http://192.168.3.93:18083
+    prefixUrl: http://10.200.0.91:18083
+    qos: 0
 
 server:
   port: 9090
